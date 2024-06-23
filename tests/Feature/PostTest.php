@@ -1,6 +1,7 @@
 <?php
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 
 /**
  * @var \Tests\TestCase $this
@@ -52,15 +53,19 @@ test('user gets 404 when trying to get a not found post', function () {
 
 test('user can create a post', function () {
     $user = User::factory()->create();
+    $image = UploadedFile::fake()->image('image.jpg');
     $this->actingAs($user);
     $input = [
         'content' => 'Hello World',
+        'media' => $image,
     ];
     $response = $this->postJson('/api/posts', $input);
-
+    $response->dump();
     expect($response->getStatusCode())->toBe(201)
-    ->and($response->json('data'))->toHaveKeys(['id', 'content', 'user', 'created_at'])
-    ->and($response->json('data.user'))->toHaveKeys(['id', 'name']);
+    ->and($response->json('data'))->toHaveKeys(['id', 'content', 'user','media', 'created_at'])
+    ->and($response->json('data.user'))->toHaveKeys(['id', 'name'])
+    ->and($response->json('data.media'))->toHaveKeys(['url', 'type'])
+    ->and($response->json('data.media.type'))->toBe('image');
 });
 
 test('unauthenticated user gets 401 when trying to create a post', function () {
