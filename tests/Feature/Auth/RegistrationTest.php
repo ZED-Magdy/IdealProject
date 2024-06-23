@@ -10,6 +10,6 @@ test('new users can register', function () {
         'image' => UploadedFile::fake()->image('avatar.jpg')
     ]);
 
-    expect($response->getStatusCode())->toBe(201)
-        ->and($response->json('data'))->toHaveKeys(['id', 'name', 'phone_number', 'image']);
+    expect($response->getStatusCode())->toBe(200);
+    $response->assertJson(['message' => __('Registration successfully')]);
 });

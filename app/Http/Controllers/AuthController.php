@@ -25,10 +25,15 @@ class AuthController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param RegisterRequest $request
-     * @return JsonResponse|UserResource
+     * @return JsonResponse
      */
-    #[ResponseFromApiResource(UserResource::class, User::class,  201, 'new user')]
-    public function register(RegisterRequest $request) :  JsonResponse|UserResource
+    #[\Knuckles\Scribe\Attributes\Response(
+        [
+            'message' => 'Registration successfully',
+        ],
+        200,
+    )]
+    public function register(RegisterRequest $request) :  JsonResponse
     {
         try {
             /**
@@ -41,7 +46,7 @@ class AuthController extends Controller
                 $image,
             );
 
-            return new UserResource($this->service->show($user));
+            return $this->successResponse('Registration successfully');
         }catch (\Exception $e){
             return $this->errorResponse($e->getMessage());
         }
@@ -50,6 +55,12 @@ class AuthController extends Controller
      * Store a newly created resource in storage.
      * @param LoginRequest $request
      */
+    #[\Knuckles\Scribe\Attributes\Response(
+        [
+            'message' => 'OTP sent successfully',
+        ],
+        200,
+    )]
     public function login(LoginRequest $request): JsonResponse
     {
         try {
@@ -66,6 +77,7 @@ class AuthController extends Controller
      * @param verifyOtpCodeRequest $request
      * @return JsonResponse
      */
+    #[ResponseFromApiResource(UserResource::class, User::class, 200, additional: ['access_token' => '1|127dsolhgjhudgydgi13'])]
     public function verify(verifyOtpCodeRequest $request): JsonResponse
     {
         try {

@@ -15,6 +15,7 @@ class RegisterRequest extends FormRequest
             'name' => ['required','string'],
             'email' => ['required','email','unique:users'],
             'phone_number' => ['required','unique:users'],
+            'image' => ['nullable','mimes:jpg,jpeg,png,webp|max:2048'],
         ];
     }
 
