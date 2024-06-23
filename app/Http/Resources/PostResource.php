@@ -19,6 +19,10 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'content' => $this->content,
+            'media' => [
+                'url' => $this->getFirstMediaUrl('posts'),
+                'type' => $this->getFirstMedia('posts')?->getTypeFromMime(),
+            ],
             'user' => $this->whenLoaded('user', fn() => new UserResource($this->user)),
             'created_at' => $this->created_at,
         ];

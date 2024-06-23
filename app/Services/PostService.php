@@ -6,6 +6,9 @@ namespace App\Services;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Http\UploadedFile;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 final readonly class PostService
 {
@@ -25,9 +28,12 @@ final readonly class PostService
      *
      * @param string $content
      * @param User $user
+     * @param UploadedFile|null $media
      * @return Post
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
      */
-    public function create(string $content, User $user): Post
+    public function create(string $content, User $user, UploadedFile|null $media = null): Post
     {
         /**
          * @var Post $post
@@ -35,6 +41,10 @@ final readonly class PostService
         $post =  $user->posts()->create([
             'content' => $content
         ]);
+
+        if($media) {
+            $post->addMedia($media)->toMediaCollection('posts');
+        }
 
         return $post;
     }
@@ -47,7 +57,7 @@ final readonly class PostService
      */
     public function show(Post $post): Post
     {
-        return $post->load(['user']);
+        return $post->load(['user', 'media']);
     }
 
     /**
@@ -55,13 +65,21 @@ final readonly class PostService
      *
      * @param Post $post
      * @param string $content
+     * @param UploadedFile|null $media
      * @return Post
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
      */
-    public function update(Post $post, string $content): Post
+    public function update(Post $post, string $content, UploadedFile|null $media): Post
     {
         $post->update([
             'content' => $content
         ]);
+
+        if($media) {
+            $post->clearMediaCollection('posts');
+            $post->addMedia($media)->toMediaCollection('posts');
+        }
 
         return $post;
     }

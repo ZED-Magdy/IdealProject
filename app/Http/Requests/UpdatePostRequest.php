@@ -24,6 +24,7 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'content' => ['required', 'string'],
+            'media' => ['nullable','file','mimes:jpg,jpeg,png,gif,mp4','max:20000']
         ];
     }
 }
