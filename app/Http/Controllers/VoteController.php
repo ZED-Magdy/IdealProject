@@ -7,8 +7,14 @@ use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\Vote;
 use App\Services\VoteService;
+use Knuckles\Scribe\Attributes\Authenticated;
+use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 
+#[
+    Group('Votes'),
+    Authenticated
+]
 class VoteController extends Controller
 {
     public function __construct(protected readonly VoteService $service)
