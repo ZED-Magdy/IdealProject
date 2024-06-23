@@ -8,7 +8,7 @@ use Illuminate\Http\UploadedFile;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
-class AuthService
+final readonly class AuthService
 {
     /**
      * Create a new user.
