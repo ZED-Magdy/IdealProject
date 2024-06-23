@@ -41,6 +41,10 @@ class Vote extends Model
      */
     protected $fillable = ['vote', 'votable', 'user_id'];
 
+    protected $casts = [
+        'vote' => 'boolean'
+    ];
+
     /**
      * Get the user that owns the Vote
      *
