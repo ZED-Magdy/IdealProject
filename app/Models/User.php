@@ -92,6 +92,18 @@ class User extends Authenticatable implements FilamentUser, HasMedia
     {
         return $this->hasMany(Post::class);
     }
+
+    /**
+     * Get the user's votes.
+     *
+     * @return HasMany<Vote>
+     */
+    public function votes(): HasMany
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+
     #[\Override]
     public function canAccessPanel(Panel $panel): bool
     {
