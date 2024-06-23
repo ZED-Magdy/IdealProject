@@ -1,8 +1,10 @@
 <?php
-
 use App\Models\Post;
 use App\Models\User;
 
+/**
+ * @var \Tests\TestCase $this
+ */
 test('user can view all posts', function () {
     $user = User::factory()->create();
     $this->actingAs($user);
