@@ -5,9 +5,16 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+
 /** @mixin \App\Models\Vote */
 class VoteResource extends JsonResource
 {
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    #[\Override]
     public function toArray(Request $request): array
     {
         return [
@@ -15,10 +22,6 @@ class VoteResource extends JsonResource
             'updated_at' => $this->updated_at,
             'id' => $this->id,
             'vote' => $this->vote,
-            'votable' => $this->votable,
-
-            'user_id' => $this->user_id,
-
             'user' => new UserResource($this->whenLoaded('user')),
         ];
     }
