@@ -9,7 +9,7 @@ class VoteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string|int>
      */
     public function rules(): array
     {

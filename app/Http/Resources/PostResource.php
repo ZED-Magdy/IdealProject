@@ -5,7 +5,9 @@ namespace App\Http\Resources;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-/** @mixin Post */
+/** @mixin Post
+ * @property-read string $vote
+ * */
 class PostResource extends JsonResource
 {
     /**
@@ -20,6 +22,8 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'content' => $this->content,
             'user' => $this->whenLoaded('user', fn() => new UserResource($this->user)),
+            'vote' => $this->vote,
+            'votes_result' => $this->voteResult(),
             'created_at' => $this->created_at,
         ];
     }

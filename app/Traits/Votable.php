@@ -4,27 +4,46 @@ namespace App\Traits;
 
 use App\Models\User;
 use App\Models\Vote;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
- * @method morphMany(string $class, string $string)
  * @method where(string $string, $id)
  * @method create(array $array)
  * @method update(array $array)
  * @method delete()
  * @method count()
- * @method upVotes()
- * @method downVotes()
+
  */
 trait Votable
 {
 
     /**
-     * @return mixed
+     * return all votes
+     * @return MorphMany<Vote>
      */
-    public function votes(): mixed
+    public function votes(): MorphMany
     {
         return $this->morphMany(Vote::class, 'votable');
+    }
+
+    /**
+     * @return  MorphMany<Vote>
+     */
+
+    public function upVotes(): MorphMany
+    {
+        return $this->morphMany(Vote::class,'votable')->where('vote', true);
+    }
+
+    /**
+     * @return MorphMany<Vote>
+     */
+
+    public function downVotes(): MorphMany
+    {
+        return $this->morphMany(Vote::class,'votable')->where('vote', false);
     }
 
 
@@ -65,43 +84,51 @@ trait Votable
 
 
     /**
-     * @return bool
+     * @return Attribute<string,void>
      */
-    public function isUpvoted(): bool
+    public function vote(): Attribute
     {
-        return $this->votes()->where('user_id', auth()->user()->id)->where('vote', 1)->exists();
+
+        /**
+         * @var bool|null $vote
+         */
+        $vote = $this->votes()->where('user_id', auth()->user()?->id)->first()?->vote;
+
+        $result = match ($vote) {
+            true => 'up_vote',
+            false => 'down_vote',
+            default => 'no_vote'
+        };
+
+        return Attribute::make(
+            fn() => $result
+        );
     }
 
-    /**
-     * @return bool
-     */
-    public function isDownvoted(): bool
-    {
-        return $this->votes()->where('user_id', auth()->user()->id)->where('vote', -1)->exists();
-    }
-
 
     /**
-     * @param  User  $user
+     * @param  ?User  $user
      * @return void
      */
-    public function upVoteToggle(User $user): void
+    public function upvoteToggle(?User $user): void
     {
+        if(!$user){
+            return;
+        }
 
         $vote = $this->votes()->where('user_id', $user->id)->first();
         if ($vote) { //undo upvote or change to upvote
-
             if ($vote->vote) {
                 $vote->delete();
             } else {
                 $vote->update([
-                    'vote' => 1
+                    'vote' => true
                 ]);
             }
         } else { //upvote
             $this->votes()->create([
                 'user_id' => $user->id,
-                'vote' => 1
+                'vote' => true
             ]);
         }
 
@@ -109,24 +136,30 @@ trait Votable
 
 
     /**
-     * @param  User  $user
+     * @param  ?User  $user
      * @return void
      */
-    public function downVoteToggle(User $user): void
+    public function downvoteToggle(?User $user): void
     {
+
+        if (!$user) {
+            return;
+        }
+
         $vote = $this->votes()->where('user_id', $user->id)->first();
         if ($vote) { //undo downvote or change to downvote
-            if ($vote->vote) {
-                $vote->update([
-                    'vote' => -1
-                ]);
-            } else {
-                $vote->delete();
-            }
+
+                if (!$vote->vote) {
+                    $vote->delete();
+                } else {
+                    $vote->update([
+                        'vote' => false
+                    ]);
+                }
         } else { //downvote
             $this->votes()->create([
                 'user_id' => $user->id,
-                'vote' => -1
+                'vote' => false
             ]);
         }
     }

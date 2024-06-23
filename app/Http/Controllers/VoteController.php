@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\VoteRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use App\Models\Vote;
 use App\Services\VoteService;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 
 class VoteController extends Controller
 {
@@ -19,19 +21,15 @@ class VoteController extends Controller
      * @param VoteRequest $request
      * @return PostResource
      */
+    #[ResponseFromApiResource(PostResource::class, Post::class, 200, 'post with upvotes and downvotes', with: ['user'])]
     public function upvoteTogglePost(VoteRequest $request)
     {
-        $this->authorize('create', Post::class);
-        $this->authorize('update', Post::class);
-        $this->authorize('delete', Post::class);
 
         $user = $request->user();
 
-        $post = $this->service->upvoteTogglePost($request->post_id, $user);
+        $post = $this->service->upvoteTogglePost($request->integer('post_id'), $user);
 
         return new PostResource($post);
-
-
     }
 
     /**
@@ -41,15 +39,13 @@ class VoteController extends Controller
      * @return PostResource
      */
 
+    #[ResponseFromApiResource(PostResource::class, Post::class, 200, 'post with upvotes and downvotes', with: ['user'])]
     public function downvoteTogglePost(VoteRequest $request)
     {
-        $this->authorize('create', Post::class);
-        $this->authorize('update', Post::class);
-        $this->authorize('delete', Post::class);
 
         $user = $request->user();
 
-        $post = $this->service->downvoteTogglePost($request->post_id, $user);
+        $post = $this->service->downvoteTogglePost($request->integer('post_id'), $user);
 
         return new PostResource($post);
     }
