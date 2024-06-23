@@ -7,12 +7,17 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\User;
+use App\Services\PostService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class PostController extends Controller
 {
+    public function __construct(protected readonly PostService $service)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      * @return AnonymousResourceCollection<PostResource>
@@ -22,7 +27,7 @@ class PostController extends Controller
     {
         $this->authorize('viewAny', Post::class);
 
-        $posts = Post::query()->with(['user'])->latest()->simplePaginate(20);
+        $posts = $this->service->listPosts(perPage: 20);
 
         return PostResource::collection($posts);
     }
@@ -43,12 +48,12 @@ class PostController extends Controller
          */
         $user = $request->user();
 
-        /**
-         * @var Post $post
-         */
-        $post = $user->posts()->create($request->validated());
+        $post = $this->service->create(
+            $request->string('content')->value(),
+            $user
+        );
 
-        return new PostResource($post->load(['user']));
+        return new PostResource($this->service->show($post));
     }
 
     /**
@@ -61,7 +66,7 @@ class PostController extends Controller
     {
         $this->authorize('view', $post);
 
-        return new PostResource($post->load(['user']));
+        return new PostResource($this->service->show($post));
     }
 
 
@@ -75,10 +80,9 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post): PostResource
     {
         $this->authorize('update', $post);
+        $post = $this->service->update($post, $request->string('content')->value());
 
-        $post->update($request->validated());
-
-        return new PostResource($post->load(['user']));
+        return new PostResource($this->service->show($post));
     }
 
     /**
@@ -91,7 +95,7 @@ class PostController extends Controller
     {
         $this->authorize('delete', $post);
 
-        $post->delete();
+        $this->service->delete($post);
 
         return response()->noContent();
     }

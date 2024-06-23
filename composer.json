@@ -17,6 +17,7 @@
         "nextapps/laravel-swagger-ui": "^0.9.2"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.0",
         "fakerphp/faker": "^1.23",
         "knuckleswtf/scribe": "^4.37",
         "larastan/larastan": "^2.9",
