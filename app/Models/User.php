@@ -6,6 +6,7 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -47,8 +48,17 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
+    /**
+     * Get the user's posts.
+     *
+     * @return HasMany<Post>
+     */
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->email === 'admin@admin.com';
     }
 }
