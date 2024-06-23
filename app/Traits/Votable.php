@@ -19,44 +19,72 @@ use Illuminate\Database\Eloquent\Model;
 trait Votable
 {
 
+    /**
+     * @return mixed
+     */
     public function votes(): mixed
     {
         return $this->morphMany(Vote::class, 'votable');
     }
 
+
+    /**
+     * @return int
+     */
     public function votesCount(): int
     {
         return $this->votes()->count();
     }
 
 
+    /**
+     * @return int
+     */
     public function upVotesCount(): int
     {
         return $this->upVotes()->count();
     }
 
 
+    /**
+     * @return int
+     */
     public function downVotesCount(): int
     {
         return $this->downVotes()->count();
     }
 
 
+    /**
+     * @return int
+     */
     public function voteResult(): int
     {
         return $this->upVotesCount() - $this->downVotesCount();
     }
 
+
+    /**
+     * @return bool
+     */
     public function isUpvoted(): bool
     {
         return $this->votes()->where('user_id', auth()->user()->id)->where('vote', 1)->exists();
     }
 
+    /**
+     * @return bool
+     */
     public function isDownvoted(): bool
     {
         return $this->votes()->where('user_id', auth()->user()->id)->where('vote', -1)->exists();
     }
 
+
+    /**
+     * @param  User  $user
+     * @return void
+     */
     public function upVoteToggle(User $user): void
     {
 
@@ -80,6 +108,10 @@ trait Votable
     }
 
 
+    /**
+     * @param  User  $user
+     * @return void
+     */
     public function downVoteToggle(User $user): void
     {
         $vote = $this->votes()->where('user_id', $user->id)->first();
