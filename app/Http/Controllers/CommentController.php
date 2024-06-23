@@ -57,7 +57,7 @@ class CommentController extends Controller
 
         $this->authorize('view', $comment);
 
-        $comment = $this->service->show(commentId: $comment->id,);
+        $comment = $this->service->show($comment);
 
         return new CommentResource($comment);
     }
@@ -77,7 +77,7 @@ class CommentController extends Controller
 
         $comment = $this->service->create(title: $request->string('title')->value(), post: $post);
 
-        return new CommentResource($comment);
+        return new CommentResource($this->service->show($comment));
     }
 
     /**
@@ -102,7 +102,7 @@ class CommentController extends Controller
 
         $comment = $this->service->update(title: $request->string('title')->value(), comment: $comment);
 
-        return new CommentResource($comment);
+        return new CommentResource($this->service->show($comment));
     }
 
 

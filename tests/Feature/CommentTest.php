@@ -16,8 +16,7 @@ test('as user i can add a comment', function () {
     $response = $this->postJson("/api/posts/{$post->id}/comments", $input);
 
     expect($response->getStatusCode())->toBe(201)
-        ->and($response->json('data'))->toHaveKeys(['id', 'title', 'post', 'user', 'created_at'])
-        ->and($response->json('data.post'))->toHaveKeys(['id', 'content', 'created_at'])
+        ->and($response->json('data'))->toHaveKeys(['id', 'title', 'user', 'created_at'])
         ->and($response->json('data.user'))->toHaveKeys(['id', 'name']);
 
 });
@@ -37,8 +36,7 @@ test('as user i can view all comments of a post', function () {
     expect($response->getStatusCode())->toBe(200)
         ->and($response->json())->toHaveKey('data')
         ->and($response->json('data'))->toHaveCount(5)
-        ->and($response->json('data.0'))->toHaveKeys(['id', 'title', 'post', 'user', 'created_at'])
-        ->and($response->json('data.0.post'))->toHaveKeys(['id', 'content', 'created_at'])
+        ->and($response->json('data.0'))->toHaveKeys(['id', 'title', 'user', 'created_at'])
         ->and($response->json('data.0.user'))->toHaveKeys(['id', 'name']);
 });
 
@@ -62,8 +60,7 @@ test('as user i can view a comment', function () {
 
 
     expect($response->getStatusCode())->toBe(200)
-        ->and($response->json('data'))->toHaveKeys(['id', 'title', 'post', 'user', 'created_at'])
-        ->and($response->json('data.post'))->toHaveKeys(['id', 'content', 'created_at'])
+        ->and($response->json('data'))->toHaveKeys(['id', 'title', 'user', 'created_at'])
         ->and($response->json('data.user'))->toHaveKeys(['id', 'name']);
 });
 
@@ -90,8 +87,7 @@ test('as user i can update a comment', function () {
 
 
     expect($response->getStatusCode())->toBe(200)
-        ->and($response->json('data'))->toHaveKeys(['id', 'title', 'post', 'user', 'created_at'])
-        ->and($response->json('data.post'))->toHaveKeys(['id', 'content', 'created_at'])
+        ->and($response->json('data'))->toHaveKeys(['id', 'title', 'user', 'created_at'])
         ->and($response->json('data.user'))->toHaveKeys(['id', 'name']);
 });
 

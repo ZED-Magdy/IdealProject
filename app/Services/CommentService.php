@@ -20,19 +20,19 @@ final readonly class CommentService
     {
         return Comment::query()
             ->where('post_id', $post->id)
-            ->with(['post', 'user'])->latest()->simplePaginate($perPage);
+            ->with(['user'])->latest()->simplePaginate($perPage);
     }
 
     /**
      * Show a comment.
      *
-     * @param int $commentId
+     * @param Comment $commit
      * @return Comment
      */
 
-    public function show(int $commentId): Comment
+    public function show(Comment $commit): Comment
     {
-        return Comment::query()->findOrFail($commentId)->load(['post', 'user']);
+        return $commit->load(['user']);
     }
 
     /**
@@ -53,7 +53,7 @@ final readonly class CommentService
             'post_id' => $post->id,
         ]);
 
-        return $comment->load(['post', 'user']);
+        return $comment;
     }
 
     /**
@@ -69,7 +69,7 @@ final readonly class CommentService
         $comment->title = $title;
         $comment->save();
 
-        return $comment->load(['post', 'user']);
+        return $comment;
     }
 
     /**
