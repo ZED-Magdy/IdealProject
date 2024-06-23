@@ -33,7 +33,7 @@ class CommentController extends Controller
      * @return AnonymousResourceCollection<CommentResource>
      */
 
-    #[ResponseFromApiResource(CommentResource::class, Comment::class,  200, 'list of comments', true, with: ['user','post'], simplePaginate: 20)]
+    #[ResponseFromApiResource(CommentResource::class, Comment::class,  200, 'list of comments', true, with: ['user'], simplePaginate: 20)]
 
     public function index(Post $post): AnonymousResourceCollection
     {
@@ -51,7 +51,7 @@ class CommentController extends Controller
      * @return CommentResource
      */
 
-    #[ResponseFromApiResource(PostResource::class, Post::class,  200, 'show comment', with: ['user','post'])]
+    #[ResponseFromApiResource(PostResource::class, Post::class,  200, 'show comment', with: ['user'])]
     public function show(Comment $comment): CommentResource
     {
 
@@ -70,7 +70,7 @@ class CommentController extends Controller
      * @return CommentResource
      */
 
-    #[ResponseFromApiResource(CommentResource::class, Comment::class,  201, 'new comment', with: ['user','post'])]
+    #[ResponseFromApiResource(CommentResource::class, Comment::class,  201, 'new comment', with: ['user'])]
     public function store(CommentRequest $request, Post $post): CommentResource
     {
         $this->authorize('create', Comment::class);
@@ -87,7 +87,7 @@ class CommentController extends Controller
      * @return CommentResource
      */
 
-    #[ResponseFromApiResource(CommentResource::class, Comment::class,  200, 'update comment', with: ['user','post'])]
+    #[ResponseFromApiResource(CommentResource::class, Comment::class,  200, 'update comment', with: ['user'])]
     #[\Knuckles\Scribe\Attributes\Response(
         [
             'message' => 'Unauthorized',
