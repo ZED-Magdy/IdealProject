@@ -7,6 +7,358 @@ servers:
   -
     url: 'http://localhost:8000'
 paths:
+  '/api/posts/{post_id}/comments':
+    get:
+      summary: 'Display a listing of the resource.'
+      operationId: displayAListingOfTheResource
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: 'list of comments'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      created_at: '2024-06-23T14:01:33.000000Z'
+                      updated_at: '2024-06-23T14:01:33.000000Z'
+                      id: 1
+                      title: repellendus
+                      user:
+                        id: 2
+                        name: 'Major Wilkinson'
+                    -
+                      created_at: '2024-06-23T14:01:33.000000Z'
+                      updated_at: '2024-06-23T14:01:33.000000Z'
+                      id: 2
+                      title: natus
+                      user:
+                        id: 4
+                        name: 'Hilario Thompson III'
+                  links:
+                    first: '/?page=1'
+                    last: null
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    path: /
+                    per_page: 20
+                    to: 2
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        created_at: '2024-06-23T14:01:33.000000Z'
+                        updated_at: '2024-06-23T14:01:33.000000Z'
+                        id: 1
+                        title: repellendus
+                        user:
+                          id: 2
+                          name: 'Major Wilkinson'
+                      -
+                        created_at: '2024-06-23T14:01:33.000000Z'
+                        updated_at: '2024-06-23T14:01:33.000000Z'
+                        id: 2
+                        title: natus
+                        user:
+                          id: 4
+                          name: 'Hilario Thompson III'
+                    items:
+                      type: object
+                      properties:
+                        created_at:
+                          type: string
+                          example: '2024-06-23T14:01:33.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2024-06-23T14:01:33.000000Z'
+                        id:
+                          type: integer
+                          example: 1
+                        title:
+                          type: string
+                          example: repellendus
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 2
+                            name:
+                              type: string
+                              example: 'Major Wilkinson'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: '/?page=1'
+                      last:
+                        type: string
+                        example: null
+                      prev:
+                        type: string
+                        example: null
+                      next:
+                        type: string
+                        example: null
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      path:
+                        type: string
+                        example: /
+                      per_page:
+                        type: integer
+                        example: 20
+                      to:
+                        type: integer
+                        example: 2
+      tags:
+        - Comments
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: 'new comment'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    created_at: '2024-06-23T14:01:33.000000Z'
+                    updated_at: '2024-06-23T14:01:33.000000Z'
+                    id: 1
+                    title: eaque
+                    user:
+                      id: 2
+                      name: 'Kayden Stracke'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      created_at:
+                        type: string
+                        example: '2024-06-23T14:01:33.000000Z'
+                      updated_at:
+                        type: string
+                        example: '2024-06-23T14:01:33.000000Z'
+                      id:
+                        type: integer
+                        example: 1
+                      title:
+                        type: string
+                        example: eaque
+                      user:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 2
+                          name:
+                            type: string
+                            example: 'Kayden Stracke'
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: ''
+                  example: itaque
+              required:
+                - title
+    parameters:
+      -
+        in: path
+        name: post_id
+        description: 'The ID of the post.'
+        example: 15
+        required: true
+        schema:
+          type: integer
+  '/api/comments/{comment_id}':
+    get:
+      summary: 'Display the specified resource.'
+      operationId: displayTheSpecifiedResource
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: 'show comment'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    content: 'Error aut atque dolorum sunt repellat fugit. Quae voluptas qui reiciendis temporibus quia. Unde vitae soluta perspiciatis maxime. Fuga rem nulla sequi rerum deserunt id ad.'
+                    media:
+                      url: ''
+                      type: null
+                    user:
+                      id: 1
+                      name: 'Dr. Letitia Hettinger'
+                    created_at: '2024-06-23T14:01:33.000000Z'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      content:
+                        type: string
+                        example: 'Error aut atque dolorum sunt repellat fugit. Quae voluptas qui reiciendis temporibus quia. Unde vitae soluta perspiciatis maxime. Fuga rem nulla sequi rerum deserunt id ad.'
+                      media:
+                        type: object
+                        properties:
+                          url:
+                            type: string
+                            example: ''
+                          type:
+                            type: string
+                            example: null
+                      user:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: 'Dr. Letitia Hettinger'
+                      created_at:
+                        type: string
+                        example: '2024-06-23T14:01:33.000000Z'
+      tags:
+        - Comments
+    put:
+      summary: 'Update the specified resource in storage.'
+      operationId: updateTheSpecifiedResourceInStorage
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: 'update comment'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    created_at: '2024-06-23T14:01:33.000000Z'
+                    updated_at: '2024-06-23T14:01:33.000000Z'
+                    id: 1
+                    title: dolor
+                    user:
+                      id: 2
+                      name: 'Lacy Pfeffer III'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      created_at:
+                        type: string
+                        example: '2024-06-23T14:01:33.000000Z'
+                      updated_at:
+                        type: string
+                        example: '2024-06-23T14:01:33.000000Z'
+                      id:
+                        type: integer
+                        example: 1
+                      title:
+                        type: string
+                        example: dolor
+                      user:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 2
+                          name:
+                            type: string
+                            example: 'Lacy Pfeffer III'
+        403:
+          description: 'User cannot update comment that doesnt belong to him.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthorized
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: ''
+                  example: architecto
+              required:
+                - title
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
+      description: ''
+      parameters: []
+      responses:
+        204:
+          description: 'Comment deleted successfully.'
+        403:
+          description: 'User cannot delete comment that doesnt belong to him.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthorized
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+      tags:
+        - Comments
+    parameters:
+      -
+        in: path
+        name: comment_id
+        description: 'The ID of the comment.'
+        example: 6
+        required: true
+        schema:
+          type: integer
   /api/user:
     get:
       summary: ''
@@ -45,19 +397,19 @@ paths:
                 example:
                   data:
                     -
-                      id: 1
-                      content: 'Et cumque aut ut eos laudantium ducimus incidunt numquam. Quasi dolorum neque eos atque qui quae voluptatem. Dolor consequatur et voluptate qui. Molestiae magnam fugiat velit molestias blanditiis dolorem sunt. At quia nihil delectus eos aut.'
-                      user:
-                        id: 1
-                        name: 'Prof. Winona Veum'
-                      created_at: '2024-06-23T10:02:05.000000Z'
+                      id: null
+                      content: null
+                      media:
+                        url: ''
+                        type: null
+                      created_at: null
                     -
-                      id: 2
-                      content: 'Rem ut quod dignissimos voluptas dicta minus aspernatur consequuntur. Eaque quaerat quae qui velit omnis qui illum. Magnam ea rerum sit quis corporis repellat. Sed distinctio repudiandae assumenda ipsam omnis.'
-                      user:
-                        id: 2
-                        name: 'Eriberto Parisian'
-                      created_at: '2024-06-23T10:02:05.000000Z'
+                      id: null
+                      content: null
+                      media:
+                        url: ''
+                        type: null
+                      created_at: null
                   links:
                     first: '/?page=1'
                     last: null
@@ -74,40 +426,40 @@ paths:
                     type: array
                     example:
                       -
-                        id: 1
-                        content: 'Et cumque aut ut eos laudantium ducimus incidunt numquam. Quasi dolorum neque eos atque qui quae voluptatem. Dolor consequatur et voluptate qui. Molestiae magnam fugiat velit molestias blanditiis dolorem sunt. At quia nihil delectus eos aut.'
-                        user:
-                          id: 1
-                          name: 'Prof. Winona Veum'
-                        created_at: '2024-06-23T10:02:05.000000Z'
+                        id: null
+                        content: null
+                        media:
+                          url: ''
+                          type: null
+                        created_at: null
                       -
-                        id: 2
-                        content: 'Rem ut quod dignissimos voluptas dicta minus aspernatur consequuntur. Eaque quaerat quae qui velit omnis qui illum. Magnam ea rerum sit quis corporis repellat. Sed distinctio repudiandae assumenda ipsam omnis.'
-                        user:
-                          id: 2
-                          name: 'Eriberto Parisian'
-                        created_at: '2024-06-23T10:02:05.000000Z'
+                        id: null
+                        content: null
+                        media:
+                          url: ''
+                          type: null
+                        created_at: null
                     items:
                       type: object
                       properties:
                         id:
-                          type: integer
-                          example: 1
+                          type: string
+                          example: null
                         content:
                           type: string
-                          example: 'Et cumque aut ut eos laudantium ducimus incidunt numquam. Quasi dolorum neque eos atque qui quae voluptatem. Dolor consequatur et voluptate qui. Molestiae magnam fugiat velit molestias blanditiis dolorem sunt. At quia nihil delectus eos aut.'
-                        user:
+                          example: null
+                        media:
                           type: object
                           properties:
-                            id:
-                              type: integer
-                              example: 1
-                            name:
+                            url:
                               type: string
-                              example: 'Prof. Winona Veum'
+                              example: ''
+                            type:
+                              type: string
+                              example: null
                         created_at:
                           type: string
-                          example: '2024-06-23T10:02:05.000000Z'
+                          example: null
                   links:
                     type: object
                     properties:
@@ -157,47 +509,51 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 1
-                    content: 'Voluptatibus quas molestias eum porro. Voluptas ut blanditiis eligendi modi praesentium earum amet. Laboriosam porro velit sunt laboriosam repudiandae cum expedita. Et aliquam distinctio maxime blanditiis.'
-                    user:
-                      id: 1
-                      name: 'Judson Bartell'
-                    created_at: '2024-06-23T10:02:05.000000Z'
+                    id: null
+                    content: null
+                    media:
+                      url: ''
+                      type: null
+                    created_at: null
                 properties:
                   data:
                     type: object
                     properties:
                       id:
-                        type: integer
-                        example: 1
+                        type: string
+                        example: null
                       content:
                         type: string
-                        example: 'Voluptatibus quas molestias eum porro. Voluptas ut blanditiis eligendi modi praesentium earum amet. Laboriosam porro velit sunt laboriosam repudiandae cum expedita. Et aliquam distinctio maxime blanditiis.'
-                      user:
+                        example: null
+                      media:
                         type: object
                         properties:
-                          id:
-                            type: integer
-                            example: 1
-                          name:
+                          url:
                             type: string
-                            example: 'Judson Bartell'
+                            example: ''
+                          type:
+                            type: string
+                            example: null
                       created_at:
                         type: string
-                        example: '2024-06-23T10:02:05.000000Z'
+                        example: null
       tags:
         - Posts
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
               properties:
                 content:
                   type: string
                   description: ''
-                  example: doloribus
+                  example: porro
+                media:
+                  type: string
+                  format: binary
+                  description: 'Must be a file. Must not be greater than 20000 kilobytes.'
               required:
                 - content
   '/api/posts/{id}':
@@ -215,34 +571,34 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 1
-                    content: 'Eaque sit est adipisci illum ad. Ea et reprehenderit corporis itaque. Fugiat et odio rerum et. Corrupti molestiae minus illum temporibus.'
-                    user:
-                      id: 1
-                      name: 'Ezekiel Schmitt I'
-                    created_at: '2024-06-23T10:02:05.000000Z'
+                    id: null
+                    content: null
+                    media:
+                      url: ''
+                      type: null
+                    created_at: null
                 properties:
                   data:
                     type: object
                     properties:
                       id:
-                        type: integer
-                        example: 1
+                        type: string
+                        example: null
                       content:
                         type: string
-                        example: 'Eaque sit est adipisci illum ad. Ea et reprehenderit corporis itaque. Fugiat et odio rerum et. Corrupti molestiae minus illum temporibus.'
-                      user:
+                        example: null
+                      media:
                         type: object
                         properties:
-                          id:
-                            type: integer
-                            example: 1
-                          name:
+                          url:
                             type: string
-                            example: 'Ezekiel Schmitt I'
+                            example: ''
+                          type:
+                            type: string
+                            example: null
                       created_at:
                         type: string
-                        example: '2024-06-23T10:02:05.000000Z'
+                        example: null
       tags:
         - Posts
     put:
@@ -259,34 +615,34 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 1
-                    content: 'Eligendi voluptas ea qui et aperiam. Nobis atque similique minima explicabo.'
-                    user:
-                      id: 1
-                      name: 'Emmanuel Hermann'
-                    created_at: '2024-06-23T10:02:05.000000Z'
+                    id: null
+                    content: null
+                    media:
+                      url: ''
+                      type: null
+                    created_at: null
                 properties:
                   data:
                     type: object
                     properties:
                       id:
-                        type: integer
-                        example: 1
+                        type: string
+                        example: null
                       content:
                         type: string
-                        example: 'Eligendi voluptas ea qui et aperiam. Nobis atque similique minima explicabo.'
-                      user:
+                        example: null
+                      media:
                         type: object
                         properties:
-                          id:
-                            type: integer
-                            example: 1
-                          name:
+                          url:
                             type: string
-                            example: 'Emmanuel Hermann'
+                            example: ''
+                          type:
+                            type: string
+                            example: null
                       created_at:
                         type: string
-                        example: '2024-06-23T10:02:05.000000Z'
+                        example: null
         403:
           description: 'User cannot update post that doesnt belong to him.'
           content:
@@ -304,14 +660,18 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
               properties:
                 content:
                   type: string
                   description: ''
-                  example: culpa
+                  example: blanditiis
+                media:
+                  type: string
+                  format: binary
+                  description: 'Must be a file. Must not be greater than 20000 kilobytes.'
               required:
                 - content
     delete:
@@ -341,11 +701,14 @@ paths:
         in: path
         name: id
         description: 'The ID of the post.'
-        example: 14
+        example: 2
         required: true
         schema:
           type: integer
 tags:
+  -
+    name: Comments
+    description: ''
   -
     name: Endpoints
     description: ''

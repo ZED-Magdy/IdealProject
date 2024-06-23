@@ -21,6 +21,10 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'content' => $this->content,
+            'media' => [
+                'url' => $this->getFirstMediaUrl('posts'),
+                'type' => $this->getFirstMedia('posts')?->getTypeFromMime(),
+            ],
             'user' => $this->whenLoaded('user', fn() => new UserResource($this->user)),
             'vote' => $this->vote,
             'votes_result' => $this->voteResult(),

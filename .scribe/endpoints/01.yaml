@@ -27,7 +27,7 @@ endpoints:
     responses:
       -
         status: 200
-        content: '{"data":[{"id":1,"content":"Et cumque aut ut eos laudantium ducimus incidunt numquam. Quasi dolorum neque eos atque qui quae voluptatem. Dolor consequatur et voluptate qui. Molestiae magnam fugiat velit molestias blanditiis dolorem sunt. At quia nihil delectus eos aut.","user":{"id":1,"name":"Prof. Winona Veum"},"created_at":"2024-06-23T10:02:05.000000Z"},{"id":2,"content":"Rem ut quod dignissimos voluptas dicta minus aspernatur consequuntur. Eaque quaerat quae qui velit omnis qui illum. Magnam ea rerum sit quis corporis repellat. Sed distinctio repudiandae assumenda ipsam omnis.","user":{"id":2,"name":"Eriberto Parisian"},"created_at":"2024-06-23T10:02:05.000000Z"}],"links":{"first":"\/?page=1","last":null,"prev":null,"next":null},"meta":{"current_page":1,"from":1,"path":"\/","per_page":20,"to":2}}'
+        content: '{"data":[{"id":null,"content":null,"media":{"url":"","type":null},"created_at":null},{"id":null,"content":null,"media":{"url":"","type":null},"created_at":null}],"links":{"first":"\/?page=1","last":null,"prev":null,"next":null},"meta":{"current_page":1,"from":1,"path":"\/","per_page":20,"to":2}}'
         headers: []
         description: 'list of posts'
         custom: []
@@ -51,7 +51,7 @@ endpoints:
       authenticated: true
       custom: []
     headers:
-      Content-Type: application/json
+      Content-Type: multipart/form-data
       Accept: application/json
     urlParameters: []
     cleanUrlParameters: []
@@ -62,18 +62,28 @@ endpoints:
         name: content
         description: ''
         required: true
-        example: doloribus
+        example: porro
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
+      media:
+        name: media
+        description: 'Must be a file. Must not be greater than 20000 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
     cleanBodyParameters:
-      content: doloribus
-    fileParameters: []
+      content: porro
+    fileParameters:
+      media: null
     responses:
       -
         status: 201
-        content: '{"data":{"id":1,"content":"Voluptatibus quas molestias eum porro. Voluptas ut blanditiis eligendi modi praesentium earum amet. Laboriosam porro velit sunt laboriosam repudiandae cum expedita. Et aliquam distinctio maxime blanditiis.","user":{"id":1,"name":"Judson Bartell"},"created_at":"2024-06-23T10:02:05.000000Z"}}'
+        content: '{"data":{"id":null,"content":null,"media":{"url":"","type":null},"created_at":null}}'
         headers: []
         description: 'new post'
         custom: []
@@ -104,13 +114,13 @@ endpoints:
         name: id
         description: 'The ID of the post.'
         required: true
-        example: 14
+        example: 2
         type: integer
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanUrlParameters:
-      id: 14
+      id: 2
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -119,7 +129,7 @@ endpoints:
     responses:
       -
         status: 200
-        content: '{"data":{"id":1,"content":"Eaque sit est adipisci illum ad. Ea et reprehenderit corporis itaque. Fugiat et odio rerum et. Corrupti molestiae minus illum temporibus.","user":{"id":1,"name":"Ezekiel Schmitt I"},"created_at":"2024-06-23T10:02:05.000000Z"}}'
+        content: '{"data":{"id":null,"content":null,"media":{"url":"","type":null},"created_at":null}}'
         headers: []
         description: 'show post'
         custom: []
@@ -144,20 +154,20 @@ endpoints:
       authenticated: true
       custom: []
     headers:
-      Content-Type: application/json
+      Content-Type: multipart/form-data
       Accept: application/json
     urlParameters:
       id:
         name: id
         description: 'The ID of the post.'
         required: true
-        example: 14
+        example: 11
         type: integer
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanUrlParameters:
-      id: 14
+      id: 11
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -165,18 +175,28 @@ endpoints:
         name: content
         description: ''
         required: true
-        example: culpa
+        example: blanditiis
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
+      media:
+        name: media
+        description: 'Must be a file. Must not be greater than 20000 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
     cleanBodyParameters:
-      content: culpa
-    fileParameters: []
+      content: blanditiis
+    fileParameters:
+      media: null
     responses:
       -
         status: 200
-        content: '{"data":{"id":1,"content":"Eligendi voluptas ea qui et aperiam. Nobis atque similique minima explicabo.","user":{"id":1,"name":"Emmanuel Hermann"},"created_at":"2024-06-23T10:02:05.000000Z"}}'
+        content: '{"data":{"id":null,"content":null,"media":{"url":"","type":null},"created_at":null}}'
         headers: []
         description: 'update post'
         custom: []
@@ -213,13 +233,13 @@ endpoints:
         name: id
         description: 'The ID of the post.'
         required: true
-        example: 9
+        example: 7
         type: integer
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanUrlParameters:
-      id: 9
+      id: 7
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

@@ -14,7 +14,8 @@
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
-        "nextapps/laravel-swagger-ui": "^0.9.2"
+        "nextapps/laravel-swagger-ui": "^0.9.2",
+        "spatie/laravel-medialibrary": "^11.7"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.0",

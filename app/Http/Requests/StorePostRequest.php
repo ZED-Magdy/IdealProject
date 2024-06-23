@@ -23,7 +23,8 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'content' => ['required', 'string']
+            'content' => ['required', 'string'],
+            'media' => ['nullable','file','mimes:jpg,jpeg,png,gif,mp4','max:20000']
         ];
     }
 }

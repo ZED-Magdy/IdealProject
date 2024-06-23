@@ -9,8 +9,10 @@ use App\Models\Post;
 use App\Models\User;
 use App\Services\PostService;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
@@ -30,7 +32,7 @@ class PostController extends Controller
      * @return AnonymousResourceCollection<PostResource>
      * @throws AuthorizationException
      */
-    #[ResponseFromApiResource(PostResource::class, Post::class,  200, 'list of posts', true, with: ['user'], simplePaginate: 20)]
+    #[ResponseFromApiResource(PostResource::class, Post::class,  200, 'list of posts', true, with: ['user', 'media'], simplePaginate: 20)]
     public function index(): AnonymousResourceCollection
     {
         $this->authorize('viewAny', Post::class);
@@ -44,25 +46,33 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param StorePostRequest $request
-     * @return PostResource
+     * @return PostResource|JsonResponse
      * @throws AuthorizationException
      */
-    #[ResponseFromApiResource(PostResource::class, Post::class,  201, 'new post', with: ['user'])]
-    public function store(StorePostRequest $request): PostResource
+    #[ResponseFromApiResource(PostResource::class, Post::class,  201, 'new post', with: ['user', 'media'])]
+    public function store(StorePostRequest $request): PostResource|JsonResponse
     {
         $this->authorize('create', Post::class);
 
-        /**
-         * @var User $user
-         */
-        $user = $request->user();
+        try {
+            /**
+             * @var User $user
+             */
+            $user = $request->user();
+            /**
+             * @var UploadedFile|null $media
+             */
+            $media = $request->file('media');
+            $post = $this->service->create(
+                $request->string('content')->value(),
+                $user,
+                $media
+            );
 
-        $post = $this->service->create(
-            $request->string('content')->value(),
-            $user
-        );
-
-        return new PostResource($this->service->show($post));
+            return new PostResource($this->service->show($post));
+        }catch (\Exception $e) {
+            return response()->json(['message' => 'Something went wrong'], 400);
+        }
     }
 
     /**
@@ -71,7 +81,7 @@ class PostController extends Controller
      * @return PostResource
      * @throws AuthorizationException
      */
-    #[ResponseFromApiResource(PostResource::class, Post::class,  200, 'show post', with: ['user'])]
+    #[ResponseFromApiResource(PostResource::class, Post::class,  200, 'show post', with: ['user', 'media'])]
     public function show(Post $post): PostResource
     {
         $this->authorize('view', $post);
@@ -84,10 +94,10 @@ class PostController extends Controller
      * Update the specified resource in storage.
      * @param UpdatePostRequest $request
      * @param Post $post
-     * @return PostResource
+     * @return PostResource|JsonResponse
      * @throws AuthorizationException
      */
-    #[ResponseFromApiResource(PostResource::class, Post::class,  200, 'update post', with: ['user'])]
+    #[ResponseFromApiResource(PostResource::class, Post::class,  200, 'update post', with: ['user', 'media'])]
     #[\Knuckles\Scribe\Attributes\Response(
         [
             'message' => 'Unauthorized',
@@ -95,12 +105,24 @@ class PostController extends Controller
         403,
         'User cannot update post that doesnt belong to him.',
     )]
-    public function update(UpdatePostRequest $request, Post $post): PostResource
+    public function update(UpdatePostRequest $request, Post $post): PostResource|JsonResponse
     {
         $this->authorize('update', $post);
-        $post = $this->service->update($post, $request->string('content')->value());
+        try {
+            /**
+             * @var UploadedFile|null $media
+             */
+            $media = $request->file('media');
+            $post = $this->service->update(
+                $post,
+                $request->string('content')->value(),
+                $media
+            );
 
-        return new PostResource($this->service->show($post));
+            return new PostResource($this->service->show($post));
+        }catch (\Exception $e) {
+            return response()->json(['message' => 'Something went wrong'], 400);
+        }
     }
 
     /**
