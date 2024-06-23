@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -69,6 +69,7 @@ class User extends Authenticatable implements FilamentUser
      *
      * @return array<string, string>
      */
+    #[\Override]
     protected function casts(): array
     {
         return [
@@ -86,6 +87,7 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Post::class);
     }
+    #[\Override]
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->email === 'admin@admin.com';
