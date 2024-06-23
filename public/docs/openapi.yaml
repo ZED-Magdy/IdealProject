@@ -23,21 +23,21 @@ paths:
                 example:
                   data:
                     -
-                      created_at: '2024-06-23T13:58:50.000000Z'
-                      updated_at: '2024-06-23T13:58:50.000000Z'
+                      created_at: '2024-06-23T14:01:33.000000Z'
+                      updated_at: '2024-06-23T14:01:33.000000Z'
                       id: 1
-                      title: voluptate
+                      title: repellendus
                       user:
                         id: 2
-                        name: 'Leslie Roob MD'
+                        name: 'Major Wilkinson'
                     -
-                      created_at: '2024-06-23T13:58:50.000000Z'
-                      updated_at: '2024-06-23T13:58:50.000000Z'
+                      created_at: '2024-06-23T14:01:33.000000Z'
+                      updated_at: '2024-06-23T14:01:33.000000Z'
                       id: 2
-                      title: sunt
+                      title: natus
                       user:
                         id: 4
-                        name: 'Arely Champlin'
+                        name: 'Hilario Thompson III'
                   links:
                     first: '/?page=1'
                     last: null
@@ -54,36 +54,36 @@ paths:
                     type: array
                     example:
                       -
-                        created_at: '2024-06-23T13:58:50.000000Z'
-                        updated_at: '2024-06-23T13:58:50.000000Z'
+                        created_at: '2024-06-23T14:01:33.000000Z'
+                        updated_at: '2024-06-23T14:01:33.000000Z'
                         id: 1
-                        title: voluptate
+                        title: repellendus
                         user:
                           id: 2
-                          name: 'Leslie Roob MD'
+                          name: 'Major Wilkinson'
                       -
-                        created_at: '2024-06-23T13:58:50.000000Z'
-                        updated_at: '2024-06-23T13:58:50.000000Z'
+                        created_at: '2024-06-23T14:01:33.000000Z'
+                        updated_at: '2024-06-23T14:01:33.000000Z'
                         id: 2
-                        title: sunt
+                        title: natus
                         user:
                           id: 4
-                          name: 'Arely Champlin'
+                          name: 'Hilario Thompson III'
                     items:
                       type: object
                       properties:
                         created_at:
                           type: string
-                          example: '2024-06-23T13:58:50.000000Z'
+                          example: '2024-06-23T14:01:33.000000Z'
                         updated_at:
                           type: string
-                          example: '2024-06-23T13:58:50.000000Z'
+                          example: '2024-06-23T14:01:33.000000Z'
                         id:
                           type: integer
                           example: 1
                         title:
                           type: string
-                          example: voluptate
+                          example: repellendus
                         user:
                           type: object
                           properties:
@@ -92,7 +92,7 @@ paths:
                               example: 2
                             name:
                               type: string
-                              example: 'Leslie Roob MD'
+                              example: 'Major Wilkinson'
                   links:
                     type: object
                     properties:
@@ -142,29 +142,29 @@ paths:
                 type: object
                 example:
                   data:
-                    created_at: '2024-06-23T13:58:50.000000Z'
-                    updated_at: '2024-06-23T13:58:50.000000Z'
+                    created_at: '2024-06-23T14:01:33.000000Z'
+                    updated_at: '2024-06-23T14:01:33.000000Z'
                     id: 1
-                    title: quasi
+                    title: eaque
                     user:
                       id: 2
-                      name: 'Jamarcus Langosh'
+                      name: 'Kayden Stracke'
                 properties:
                   data:
                     type: object
                     properties:
                       created_at:
                         type: string
-                        example: '2024-06-23T13:58:50.000000Z'
+                        example: '2024-06-23T14:01:33.000000Z'
                       updated_at:
                         type: string
-                        example: '2024-06-23T13:58:50.000000Z'
+                        example: '2024-06-23T14:01:33.000000Z'
                       id:
                         type: integer
                         example: 1
                       title:
                         type: string
-                        example: quasi
+                        example: eaque
                       user:
                         type: object
                         properties:
@@ -173,7 +173,7 @@ paths:
                             example: 2
                           name:
                             type: string
-                            example: 'Jamarcus Langosh'
+                            example: 'Kayden Stracke'
       tags:
         - Comments
       requestBody:
@@ -186,7 +186,7 @@ paths:
                 title:
                   type: string
                   description: ''
-                  example: laudantium
+                  example: itaque
               required:
                 - title
     parameters:
@@ -194,7 +194,7 @@ paths:
         in: path
         name: post_id
         description: 'The ID of the post.'
-        example: 12
+        example: 15
         required: true
         schema:
           type: integer
@@ -214,14 +214,14 @@ paths:
                 example:
                   data:
                     id: 1
-                    content: 'Facilis aut est quia libero reiciendis eos consequatur. Iste a tempora excepturi iure voluptas numquam et quas. Corrupti quia modi provident doloremque minus odit temporibus.'
+                    content: 'Error aut atque dolorum sunt repellat fugit. Quae voluptas qui reiciendis temporibus quia. Unde vitae soluta perspiciatis maxime. Fuga rem nulla sequi rerum deserunt id ad.'
                     media:
                       url: ''
                       type: null
                     user:
                       id: 1
-                      name: 'Beaulah Gusikowski'
-                    created_at: '2024-06-23T13:58:50.000000Z'
+                      name: 'Dr. Letitia Hettinger'
+                    created_at: '2024-06-23T14:01:33.000000Z'
                 properties:
                   data:
                     type: object
@@ -231,7 +231,7 @@ paths:
                         example: 1
                       content:
                         type: string
-                        example: 'Facilis aut est quia libero reiciendis eos consequatur. Iste a tempora excepturi iure voluptas numquam et quas. Corrupti quia modi provident doloremque minus odit temporibus.'
+                        example: 'Error aut atque dolorum sunt repellat fugit. Quae voluptas qui reiciendis temporibus quia. Unde vitae soluta perspiciatis maxime. Fuga rem nulla sequi rerum deserunt id ad.'
                       media:
                         type: object
                         properties:
@@ -249,10 +249,10 @@ paths:
                             example: 1
                           name:
                             type: string
-                            example: 'Beaulah Gusikowski'
+                            example: 'Dr. Letitia Hettinger'
                       created_at:
                         type: string
-                        example: '2024-06-23T13:58:50.000000Z'
+                        example: '2024-06-23T14:01:33.000000Z'
       tags:
         - Comments
     put:
@@ -269,29 +269,29 @@ paths:
                 type: object
                 example:
                   data:
-                    created_at: '2024-06-23T13:58:50.000000Z'
-                    updated_at: '2024-06-23T13:58:50.000000Z'
+                    created_at: '2024-06-23T14:01:33.000000Z'
+                    updated_at: '2024-06-23T14:01:33.000000Z'
                     id: 1
-                    title: dolores
+                    title: dolor
                     user:
                       id: 2
-                      name: 'Mikayla Johnson'
+                      name: 'Lacy Pfeffer III'
                 properties:
                   data:
                     type: object
                     properties:
                       created_at:
                         type: string
-                        example: '2024-06-23T13:58:50.000000Z'
+                        example: '2024-06-23T14:01:33.000000Z'
                       updated_at:
                         type: string
-                        example: '2024-06-23T13:58:50.000000Z'
+                        example: '2024-06-23T14:01:33.000000Z'
                       id:
                         type: integer
                         example: 1
                       title:
                         type: string
-                        example: dolores
+                        example: dolor
                       user:
                         type: object
                         properties:
@@ -300,7 +300,7 @@ paths:
                             example: 2
                           name:
                             type: string
-                            example: 'Mikayla Johnson'
+                            example: 'Lacy Pfeffer III'
         403:
           description: 'User cannot update comment that doesnt belong to him.'
           content:
@@ -325,7 +325,7 @@ paths:
                 title:
                   type: string
                   description: ''
-                  example: qui
+                  example: architecto
               required:
                 - title
     delete:
@@ -355,7 +355,7 @@ paths:
         in: path
         name: comment_id
         description: 'The ID of the comment.'
-        example: 7
+        example: 6
         required: true
         schema:
           type: integer
@@ -549,7 +549,7 @@ paths:
                 content:
                   type: string
                   description: ''
-                  example: ipsam
+                  example: porro
                 media:
                   type: string
                   format: binary
@@ -667,7 +667,7 @@ paths:
                 content:
                   type: string
                   description: ''
-                  example: labore
+                  example: blanditiis
                 media:
                   type: string
                   format: binary
@@ -701,7 +701,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the post.'
-        example: 3
+        example: 2
         required: true
         schema:
           type: integer
