@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "eba9115c-0db3-42d9-8e3f-ad2c616cbde1",
+        "_postman_id": "b974aff1-6490-40db-830d-b49b492bc1fb",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -68,6 +68,214 @@
                             "code": 401,
                             "body": "{\"message\":\"Unauthenticated.\"}",
                             "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Posts",
+            "description": "",
+            "item": [
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/posts"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":1,\"content\":\"Et cumque aut ut eos laudantium ducimus incidunt numquam. Quasi dolorum neque eos atque qui quae voluptatem. Dolor consequatur et voluptate qui. Molestiae magnam fugiat velit molestias blanditiis dolorem sunt. At quia nihil delectus eos aut.\",\"user\":{\"id\":1,\"name\":\"Prof. Winona Veum\"},\"created_at\":\"2024-06-23T10:02:05.000000Z\"},{\"id\":2,\"content\":\"Rem ut quod dignissimos voluptas dicta minus aspernatur consequuntur. Eaque quaerat quae qui velit omnis qui illum. Magnam ea rerum sit quis corporis repellat. Sed distinctio repudiandae assumenda ipsam omnis.\",\"user\":{\"id\":2,\"name\":\"Eriberto Parisian\"},\"created_at\":\"2024-06-23T10:02:05.000000Z\"}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":null,\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"path\":\"\\\/\",\"per_page\":20,\"to\":2}}",
+                            "name": "list of posts"
+                        }
+                    ]
+                },
+                {
+                    "name": "Store a newly created resource in storage.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/posts"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"content\":\"doloribus\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"data\":{\"id\":1,\"content\":\"Voluptatibus quas molestias eum porro. Voluptas ut blanditiis eligendi modi praesentium earum amet. Laboriosam porro velit sunt laboriosam repudiandae cum expedita. Et aliquam distinctio maxime blanditiis.\",\"user\":{\"id\":1,\"name\":\"Judson Bartell\"},\"created_at\":\"2024-06-23T10:02:05.000000Z\"}}",
+                            "name": "new post"
+                        }
+                    ]
+                },
+                {
+                    "name": "Display the specified resource.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/posts\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "14",
+                                    "description": "The ID of the post."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":1,\"content\":\"Eaque sit est adipisci illum ad. Ea et reprehenderit corporis itaque. Fugiat et odio rerum et. Corrupti molestiae minus illum temporibus.\",\"user\":{\"id\":1,\"name\":\"Ezekiel Schmitt I\"},\"created_at\":\"2024-06-23T10:02:05.000000Z\"}}",
+                            "name": "show post"
+                        }
+                    ]
+                },
+                {
+                    "name": "Update the specified resource in storage.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/posts\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "14",
+                                    "description": "The ID of the post."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"content\":\"culpa\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":1,\"content\":\"Eligendi voluptas ea qui et aperiam. Nobis atque similique minima explicabo.\",\"user\":{\"id\":1,\"name\":\"Emmanuel Hermann\"},\"created_at\":\"2024-06-23T10:02:05.000000Z\"}}",
+                            "name": "update post"
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"message\":\"Unauthorized\"}",
+                            "name": "User cannot update post that doesnt belong to him."
+                        }
+                    ]
+                },
+                {
+                    "name": "Remove the specified resource from storage.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/posts\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/posts\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "9",
+                                    "description": "The ID of the post."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "[]",
+                            "name": "Post deleted successfully."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"message\":\"Unauthorized\"}",
+                            "name": "User cannot delete post that doesnt belong to him."
                         }
                     ]
                 }

@@ -11,7 +11,14 @@ use App\Services\PostService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Knuckles\Scribe\Attributes\Authenticated;
+use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 
+#[
+    Group('Posts'),
+    Authenticated
+]
 class PostController extends Controller
 {
     public function __construct(protected readonly PostService $service)
@@ -23,6 +30,7 @@ class PostController extends Controller
      * @return AnonymousResourceCollection<PostResource>
      * @throws AuthorizationException
      */
+    #[ResponseFromApiResource(PostResource::class, Post::class,  200, 'list of posts', true, with: ['user'], simplePaginate: 20)]
     public function index(): AnonymousResourceCollection
     {
         $this->authorize('viewAny', Post::class);
@@ -39,6 +47,7 @@ class PostController extends Controller
      * @return PostResource
      * @throws AuthorizationException
      */
+    #[ResponseFromApiResource(PostResource::class, Post::class,  201, 'new post', with: ['user'])]
     public function store(StorePostRequest $request): PostResource
     {
         $this->authorize('create', Post::class);
@@ -62,6 +71,7 @@ class PostController extends Controller
      * @return PostResource
      * @throws AuthorizationException
      */
+    #[ResponseFromApiResource(PostResource::class, Post::class,  200, 'show post', with: ['user'])]
     public function show(Post $post): PostResource
     {
         $this->authorize('view', $post);
@@ -77,6 +87,14 @@ class PostController extends Controller
      * @return PostResource
      * @throws AuthorizationException
      */
+    #[ResponseFromApiResource(PostResource::class, Post::class,  200, 'update post', with: ['user'])]
+    #[\Knuckles\Scribe\Attributes\Response(
+        [
+            'message' => 'Unauthorized',
+        ],
+        403,
+        'User cannot update post that doesnt belong to him.',
+    )]
     public function update(UpdatePostRequest $request, Post $post): PostResource
     {
         $this->authorize('update', $post);
@@ -91,6 +109,18 @@ class PostController extends Controller
      * @return Response
      * @throws AuthorizationException
      */
+    #[\Knuckles\Scribe\Attributes\Response(
+        [],
+        204,
+        'Post deleted successfully.',
+    )]
+    #[\Knuckles\Scribe\Attributes\Response(
+        [
+            'message' => 'Unauthorized',
+        ],
+        403,
+        'User cannot delete post that doesnt belong to him.',
+    )]
     public function destroy(Post $post): Response
     {
         $this->authorize('delete', $post);
