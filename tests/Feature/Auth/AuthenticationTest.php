@@ -1,35 +1,78 @@
 <?php
 
 use App\Models\User;
+use \Illuminate\Http\UploadedFile;
 
 test('users can authenticate using the login screen', function () {
-    $user = User::factory()->create();
+    $user = User::factory(['phone_number' => '1234567890'])->create();
 
-    $response = $this->post('/login', [
-        'email' => $user->email,
-        'password' => 'password',
+    $response = $this->postJson('/api/login', [
+        'phone_number' => $user->phone_number,
     ]);
 
-    $this->assertAuthenticated();
-    $response->assertNoContent();
+    expect($response->getStatusCode())->toBe(200);
+
+    $response->assertJson(['message' => __('OTP sent successfully')]);
+
 });
 
-test('users can not authenticate with invalid password', function () {
-    $user = User::factory()->create();
+test('user login not found', function () {
 
-    $this->post('/login', [
-        'email' => $user->email,
-        'password' => 'wrong-password',
+    $response = $this->postJson('/api/login', [
+        'phone_number' => '01258963217',
     ]);
 
-    $this->assertGuest();
+    $response->dump();
+
+    expect($response->getStatusCode())->toBe(500);
+
+    $response->assertJson([
+        'message' => 'User not found',
+    ]);
 });
 
-test('users can logout', function () {
-    $user = User::factory()->create();
+test('login validation error', function () {
 
-    $response = $this->actingAs($user)->post('/logout');
+    $response = $this->postJson('/api/login', [
+        'phone_number' => '',
+    ]);
 
-    $this->assertGuest();
-    $response->assertNoContent();
+    expect($response->getStatusCode())->toBe(422);
+
+    $response->assertJsonValidationErrors(['phone_number']);
 });
+
+test('verify invalid code', function () {
+
+    $user = User::factory()->create([
+        'phone_number' => '1234567890',
+        'otp_code' => Hash::make('123456')
+    ]);
+
+    $response = $this->postJson('/api/verify-otp-code', [
+        'phone_number' => '1234567890',
+        'otp_code' => '654321',
+    ]);
+
+    expect($response->getStatusCode())->toBe(500);
+
+    $response->assertJson([
+        "message" => "Invalid code"
+    ]);
+});
+
+test('verify user not found', function () {
+
+    $response = $this->postJson('/api/verify-otp-code', [
+        'phone_number' => '0987654321',
+        'otp_code' => '123456',
+    ]);
+
+    expect($response->getStatusCode())->toBe(500);
+    $response->assertJson([
+            'message' => 'user not found',
+        ]);
+});
+
+
+

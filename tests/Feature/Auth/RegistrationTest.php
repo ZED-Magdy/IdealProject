@@ -1,13 +1,15 @@
 <?php
 
+use \Illuminate\Http\UploadedFile;
+
 test('new users can register', function () {
-    $response = $this->post('/register', [
+    $response = $this->postJson('/api/register', [
         'name' => 'Test User',
         'email' => 'test@example.com',
-        'password' => 'password',
-        'password_confirmation' => 'password',
+        'phone_number' => '1234567890',
+        'image' => UploadedFile::fake()->image('avatar.jpg')
     ]);
 
-    $this->assertAuthenticated();
-    $response->assertNoContent();
+    expect($response->getStatusCode())->toBe(201)
+        ->and($response->json('data'))->toHaveKeys(['id', 'name', 'phone_number', 'image']);
 });
