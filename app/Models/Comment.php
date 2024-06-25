@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Votable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
+ *
  *
  * @property-read \App\Models\Post|null $post
  * @property-read \App\Models\User|null $user
@@ -31,7 +32,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, Votable;
 
     protected $fillable = ['title', 'post_id', 'user_id'];
 
