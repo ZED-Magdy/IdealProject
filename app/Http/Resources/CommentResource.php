@@ -22,6 +22,8 @@ class CommentResource extends JsonResource
             'updated_at' => $this->updated_at,
             'id' => $this->id,
             'title' => $this->title,
+            'vote' => $this->vote,
+            'votes_result' => $this->voteResult(),
             'user' => $this->whenLoaded('user', fn() => new UserResource($this->user)),
         ];
     }
