@@ -9,6 +9,8 @@ use App\Http\Resources\PostResource;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Vote;
+use App\Services\CommentService;
+use App\Services\PostService;
 use App\Services\VoteService;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Group;
@@ -20,7 +22,7 @@ use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 ]
 class VoteController extends Controller
 {
-    public function __construct(protected readonly VoteService $service)
+    public function __construct(protected readonly VoteService $service , protected readonly CommentService $commentService , protected readonly PostService $postService)
     {
     }
 
@@ -38,7 +40,7 @@ class VoteController extends Controller
 
         $post = $this->service->upvoteTogglePost($request->integer('post_id'), $user);
 
-        return new PostResource($post);
+        return new PostResource($this->postService->show($post));
     }
 
     /**
@@ -55,7 +57,7 @@ class VoteController extends Controller
 
         $post = $this->service->downvoteTogglePost($request->integer('post_id'), $user);
 
-        return new PostResource($post);
+        return new PostResource($this->postService->show($post));
     }
 
     /**
@@ -72,7 +74,7 @@ class VoteController extends Controller
 
         $comment = $this->service->upvoteToggleComment($request->integer('comment_id'), $user);
 
-        return new CommentResource($comment);
+        return new CommentResource($this->commentService->show($comment));
     }
 
     /**
@@ -88,7 +90,7 @@ class VoteController extends Controller
 
         $comment = $this->service->downvoteToggleComment($request->integer('comment_id'), $user);
 
-        return new CommentResource($comment);
+        return new CommentResource($this->commentService->show($comment));
     }
 
 
